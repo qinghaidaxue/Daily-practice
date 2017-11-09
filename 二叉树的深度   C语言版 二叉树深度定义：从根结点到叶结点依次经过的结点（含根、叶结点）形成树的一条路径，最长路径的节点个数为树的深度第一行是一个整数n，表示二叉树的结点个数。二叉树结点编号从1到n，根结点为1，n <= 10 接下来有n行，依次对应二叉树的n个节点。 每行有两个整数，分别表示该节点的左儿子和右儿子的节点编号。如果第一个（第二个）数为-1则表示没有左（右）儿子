@@ -54,3 +54,40 @@ int main()
 	
 	return 0;
 }
+
+用数组解决
+#include<iostream>
+using namespace std;
+int a[11][2];
+
+int deep(int n)
+{ 
+    
+	if(a[n][0]==-1&&a[n][1]==-1)
+	  {	  return 1;}
+	  int left;
+      int right;
+      left=0;
+      right=0;
+	  
+	
+	if(a[n][0]!=-1)
+		  left=deep(a[n][0]);
+	if(a[n][1]!=-1)
+		  right=deep(a[n][1]);
+	
+	return 1+max(left,right);
+}
+int main()
+{
+	int n,i;
+	while(cin>>n)
+	{
+		for(i=1;i<=n;i++)
+		{
+			cin>>a[i][0]>>a[i][1];
+		}
+		cout<<deep(1);
+	}
+return 0;
+}
