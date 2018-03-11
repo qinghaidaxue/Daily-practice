@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+    bool Find(int target, vector<vector<int> > array) {
+        int m=array[0].size();
+        int p=array.size();
+        int i=0;
+        int j;
+       for(i=p-1,j=0;i<p&&j<m&&i>=0&&j>=0;)
+        {if(array[i][j]==target)
+            return true;
+        if(array[i][j]<target)
+            j++;
+         if(array[i][j]>target)
+             i--;
+        }
+        return false;
+        
+        
+    }
+};
