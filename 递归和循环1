@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+    int jumpFloorII(int number) {
+        int i, s;
+        if(number==1)
+            return 1;
+        for(i=number,s=0;i>1;i--)
+        {
+            s=s+jumpFloorII(i-1);
+        }
+        return 1+s;
+
+    }
+};
