@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) {
+        int i,a,s;
+        a=rotateArray.size();
+        if(a==0)
+            return 0;
+        for(i=0;i<a;i++)
+        {
+           if(rotateArray[i]>rotateArray[i+1])
+           {s=rotateArray[i+1];
+            break;
+           }
+        }
+            return s;
+        
+        
+               
+        
+    }
+};
