@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+    void push(int value) {
+        s1.push(value);
+    }
+    void pop() {
+        s1.pop();
+    }
+    int top() {
+        return s1.top();
+    }
+    int min() {
+          int a;
+          a=s1.top();
+        while(!s1.empty())
+        {
+             s2.push(s1.top());
+             
+             if(s1.top()<a)
+                 a=s1.top();
+            s1.pop();
+        }
+        while(!s2.empty())
+        {
+            s1.push(s2.top());
+            s2.pop();
+        }
+        return a;
+    }
+    private:
+    stack<int> s1;
+    stack<int> s2;
+};
