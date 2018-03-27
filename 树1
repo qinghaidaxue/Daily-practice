@@ -1,0 +1,39 @@
+/**# include<iostream>
+ *using namespace std;
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        int a,b;
+        int i,j;
+        TreeNode root;
+        a=pre.size();
+        b=vin.size();
+        for(i=0;i<a;i++)
+        {
+            for(j=0;j<b;j++)
+            {
+                if(vin[j]==pre[i])
+                {
+                    vin[j]=-1;
+                }
+            }
+            if(vin[j-1]!=-1)
+            {  root.val=pre[i];
+               root=root.left;
+            }
+            if(vin[j-1]==-1||j<0)
+            {
+                root.
+            }
+        }
+
+    }
+};
