@@ -1,0 +1,44 @@
+#include<iostream>
+using mamespace std;
+class Solution {
+public:
+    vector<int> printMatrix(vector<vector<int> > matrix) {
+        int a,b,i,d,f,p,q;
+        a=matrix.size();
+        b=matrix[0].size();
+        p=0;
+        q=0;
+        f=b-1;
+        d=a-1;
+        vector<int> n;
+        if(a==0||b==0)
+            return n;
+      while(q<=d&&p<=f)
+     {
+        for(i=p;i<=f;++i)
+        {
+            n.push_back(matrix[q][i]);
+        }
+
+        for(i=q+1;i<=d;++i)
+        {
+          n.push_back(matrix[i][f]);
+        }
+      if(q!=d)
+        for(i=f-1;i>=p;--i)
+        {
+            n.push_back(matrix[d][i]);
+            
+        }
+        
+      if(p!=f)
+        for(i=d-1;i>q;--i)
+        {
+            n.push_back(matrix[i][p]);
+            
+        }
+        p++,q++,f--,d--;
+      }
+        return n;
+    }
+};
