@@ -1,0 +1,34 @@
+# include<iostream>
+using namespace std;
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    vector<int> PrintFromTopToBottom(TreeNode* root) {
+        vector<int> a;
+        queue<TreeNode*> b;
+        b.push(root);
+        TreeNode* c;
+        if(root==NULL)
+            return a;
+        while(!b.empty())
+            {
+             c=b.front();
+               a.push_back(c->val);
+             if(c->left!=NULL)
+                b.push(c->left);
+            if(c->right!=NULL)
+             b.push(c->right);
+            b.pop();
+        }
+        return a;
+
+    }
+};
