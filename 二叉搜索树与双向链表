@@ -1,0 +1,35 @@
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    TreeNode* Convert(TreeNode* pRootOfTree)
+    {
+        if(pRootOfTree==NULL)
+            return NULL;
+        TreeNode* p=NULL;
+        fun(pRootOfTree,p);
+        while(pRootOfTree->left)
+        {
+            pRootOfTree=pRootOfTree->left;
+        }
+        return pRootOfTree;
+    }
+    void fun(TreeNode* c,TreeNode*& pr)
+    {
+        if(c==NULL)
+            return ;
+        fun(c->left,pr);
+            if(pr)
+                pr->right=c;
+        c->left=pr;
+        pr=c;
+        fun(c->right,pr);
+    }
+};
