@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool IsBalanced_Solution(TreeNode* pRoot) {
+        if(pRoot==NULL)
+            return true;
+        if(shendu(pRoot->left)-shendu(pRoot->right)>1||shendu(pRoot->right)-shendu(pRoot->left)>1)
+            return false;
+            IsBalanced_Solution(pRoot->left);
+            IsBalanced_Solution(pRoot->right);
+           return true;
+    }
+        int shendu(TreeNode* pRoot)
+        {
+            if(pRoot==NULL)
+                return 0;
+            return max(shendu(pRoot->left)+1,shendu(pRoot->right)+1);
+        }
+
+    
+};
