@@ -1,0 +1,32 @@
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    vector<TreeNode*> a;
+    TreeNode* KthNode(TreeNode* pRoot, int k)
+    {
+       if(pRoot==NULL||k<1)
+            return NULL;
+        fun(pRoot);
+        if(k<=a.size())
+          return a[k-1];
+        else 
+            return NULL;
+    }
+    void fun(TreeNode* pRoot)
+       {
+        if(pRoot->left!=NULL)
+           fun(pRoot->left);
+        a.push_back(pRoot);
+        if(pRoot->right!=NULL)
+           fun(pRoot->right);
+       }
+};
