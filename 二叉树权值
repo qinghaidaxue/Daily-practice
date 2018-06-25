@@ -1,0 +1,79 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+struct Binode
+{
+	int data;
+	struct Binode* lch;
+	struct Binode* rch;
+	bool pd;
+};
+Binode *T;
+int s=0;
+void CreateBiTree(Binode* &T)
+{  
+ int a;
+ if(cin>>a)
+ {
+   if(a==-1)
+      T=NULL;
+   else
+   {  
+      T=new Binode;  
+      T->data=a; 
+      T->pd=false;
+      CreateBiTree(T->lch); 
+      CreateBiTree(T->rch);
+   } 
+  }
+return;
+}
+int quanzhi(Binode* &T)
+{
+	stack<Binode*> z;
+	Binode* b;
+	while(T!=NULL||!z.empty())
+	{
+		while(T!=NULL)
+		{
+			z.push(T);
+			T=T->lch;
+		}
+		if(z.top()->pd==true)
+		  z.pop();
+		if(!z.empty())
+		{
+		  b=z.top();
+		  b->pd=true;
+		  T=b->rch;
+	     }
+		if(T==NULL)
+		{
+			if(b->lch==NULL) 
+		      s=s+(b->data)*(z.size()-1);
+		    while(!z.empty()&&z.top()->pd==true)
+		    {
+		       z.pop();			         
+        	}
+			if(!z.empty())
+			{
+			  T=z.top()->rch;
+			  z.top()->pd=true;	
+		    }  
+		    else
+		    T=NULL;
+		}			    			   
+    }
+	return s;
+}
+int main()
+{
+	cout<<"请输入各结点数值构建一颗二叉树-1表示结点为空，以先序遍历的序列作为输入构造二叉树："; 
+	cout<<"\n";
+	CreateBiTree(T);
+	cout<<"输出各叶子节点值与其本身路径之积的和："; 
+	cout<<"\n"; 
+	quanzhi(T);
+	cout<<s;
+	return 0;
+}
