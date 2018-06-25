@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+struct Binode
+{
+	int data;
+	struct Binode *lch;
+	struct Binode *rch;
+	bool pd;	
+};
+Binode *T;
+void Creatbinode(Binode* &T)
+{
+	int a;
+	cin>>a;
+	if(a!=-1)
+	{
+		T=new Binode;
+		T->data=a;
+		Creatbinode(T->lch);
+		Creatbinode(T->rch);
+	}
+	else 
+	  T=NULL;
+}
+/*void pre(Binode* &T)
+{
+	if(T==NULL)
+	  return ;
+	else
+	 {
+	 	cout<<T->data;
+	 	pre(T->lch);
+	 	pre(T->rch);
+	 }
+}*/
+void yezi(Binode* &T)
+{
+	if(T==NULL)
+	  return;
+	if(T->lch!=NULL)
+	{
+		yezi(T->lch);
+	}
+	yezi(T->rch);
+	if(T->lch==NULL&&T->rch==NULL)
+	  cout<<T->data;
+	return;
+}
+int main()
+{
+	Creatbinode(T);
+	//pre(T);
+	//cout<<"\n";
+	yezi(T);
+	return 0;
+}
