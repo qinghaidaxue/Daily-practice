@@ -1,0 +1,112 @@
+#include<iostream>
+#include<stack>
+#include<vector>
+using namespace std;
+struct Binode
+{
+	int data;
+	struct Binode *lch;
+	struct Binode *rch;
+	bool pd;
+};
+Binode *T;
+void Creatbinode(Binode* &T)
+{
+	int a;
+	cin>>a;
+	if(a!=-1)
+	{
+	  T=new Binode;
+	  T->data=a;
+	  T->pd=false;
+	  Creatbinode(T->lch);
+	  Creatbinode(T->rch);
+	}
+	else 
+	   T=NULL;
+}
+/*void pre(Binode* &T)
+{
+	if(T==NULL)
+	   return;
+	else
+	{
+		cout<<T->data;
+		pre(T->lch);
+		pre(T->rch);
+	}
+}*/
+void printlujing(Binode* &T)
+{
+	stack<Binode*> p;
+	vector<int> s;//数组中存的是结点的数值 
+	while(T!=NULL||!p.empty())
+	{
+		while(T!=NULL)
+		{
+			p.push(T);
+			s.push_back(T->data);//入栈一个结点，数组存一个节点数值 
+			T=T->lch;
+		}
+		if(p.top()->pd==true)//栈顶元素若不是第一次出现在栈顶pop() 
+		{
+		   for(int i=0;i<s.size();i++)
+		   {
+		   	  if(s[i]==p.top()->data)
+		   	    {
+				  s[i]=-1;
+				  break;
+			    }  	   
+		   }
+		   p.pop();//只要pop()一个结点就在数组中删除相同元素，即将相同元素赋为-1
+		}		
+		if(!p.empty())
+		{
+		  p.top()->pd=true;
+		  T=p.top()->rch;
+	    }
+		if(T==NULL)
+	   {
+		 if(p.top()->lch==NULL)//之所以有这个条件是因为上面有可能要Pop（）但pop()完的栈顶元素右孩子可能为空但左孩子不为空即不为叶子节点不打印路径 
+		  {
+		    for(int i=0;i<s.size();i++)
+		   {
+		   	  if(s[i]!=-1)//数组中的元素只要是-1就不打印-1的意思是已经被删除的数组元素 
+			 {
+			    cout<<s[i];
+			    if(i!=s.size()-1)
+		   	      cout<<"->";
+		   	 }
+		   }
+	     }
+	    cout<<"\n";
+		while(p.top()->pd==true&&!p.empty())
+		    {
+		       for(int i=0;i<s.size();i++)//之所以有这一步是只要pop()栈顶元素则应该在数组中删除相同元素，但没有合适的删除函数故将相同元素赋为-1 
+		        {
+		   	      if(s[i]==p.top()->data)
+		   	      {
+				    s[i]=-1;
+				    break;
+			      }
+		        }
+			    p.pop();  
+		    } 
+		   if(!p.empty())
+		    {
+			  p.top()->pd=true;
+		      T=p.top()->rch;
+		    }
+		   else
+		   	  T=NULL;	  
+	   }
+	}
+}
+int main()
+{
+	Creatbinode(T);
+	//pre(T);
+	//cout<<"\n";
+	printlujing(T);
+	return 0;
+}
