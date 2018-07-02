@@ -1,0 +1,101 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+struct Binode
+{
+	int data;
+	struct Binode *lch;
+	struct Binode *rch;
+};
+Binode *T;
+void CreatBitree(Binode* &T)
+{
+	int m;
+	cin>>m;
+	if(m==-1)
+	  T=NULL;
+	else
+	{
+		T=new Binode;
+		T->data=m;
+		CreatBitree(T->lch);
+		CreatBitree(T->rch);
+	}
+}
+/*void pre(Binode* &T)
+{
+	if(T==NULL)
+	  return;
+	else
+	{
+		cout<<T->data;
+		pre(T->lch);
+		pre(T->rch);
+	}
+}*/
+void kuandu(Binode* &T)
+{
+	vector<int> d;//定义一个数组记录每层结点的个数 
+	stack<Binode*>a;
+	stack<Binode*>b;//定义两个栈 
+	if(T!=NULL)
+	{
+	 a.push(T);//如果根节点不为空则让根节点入 a 栈 
+	 d.push_back(1);//并使数组的第一个元素为1，即第一层节点数为一 
+    }
+    else
+	{
+	    cout<<0;
+		return;
+	}
+	while(!a.empty()||!b.empty())//结束条件为两个栈都为空 
+	{
+		while(!a.empty())//此站不为空时从栈顶元素开始判断栈顶元素的左右孩子只要不为空就入另一个栈 
+		{
+			if(a.top()->lch!=NULL)
+			  b.push(a.top()->lch);
+			if(a.top()->rch!=NULL)
+			  b.push(a.top()->rch);
+			a.pop();
+		}
+		if(b.size()!=0)//记录另一个栈中元素的个数即为一层的 结点个数，并将个数添加到数组 
+		{
+		  d.push_back(b.size());
+	    }
+		while(!b.empty())//现在这个栈不为空，另一个栈为空，重复上述步骤将此战中的每一个结点的不为空的左右孩子入另一个栈 
+		{
+			if(b.top()->lch!=NULL)
+			  a.push(b.top()->lch);
+			if(b.top()->rch!=NULL)
+			  a.push(b.top()->rch);
+			b.pop();
+		}
+		if(a.size()!=0)//之所以有这个判断是因为最后结束时栈中元素个数必为0不参与排序 
+		{
+		  d.push_back(a.size());
+	    }
+	}
+	for(int j=1;j<d.size();j++) //对数组进行一步泡沫排序找出最大值放在数组的第一个元素 
+	{
+		int t=0;
+		if(d[0]<d[j])
+		{
+			t=d[0];
+			d[0]=d[j];
+			d[j]=t;
+		}
+	}
+	cout<<d[0];
+}
+int main ()
+{
+	cout<<"请输入各结点数值构建一颗二叉树-1表示结点为空，以先序遍历的序列作为输入构造二叉树："; 
+	cout<<"\n";
+	CreatBitree(T);
+    //pre(T);
+    cout<<"输出树的宽度："; 
+	cout<<"\n";
+    kuandu(T);
+	return 0;
+}
