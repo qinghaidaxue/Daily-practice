@@ -1,0 +1,94 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+struct Binode 
+{
+	int data;
+	struct Binode *lch;
+	struct Binode *rch; 
+};
+Binode *T;
+int s=0;
+void Creatbinode(Binode* &T)
+{
+	int a;
+	cin>>a;
+	if(a==-1)
+	{
+		T=NULL;
+	}
+	else
+	{
+		T=new Binode;
+		T->data=a;
+		Creatbinode(T->lch);
+		Creatbinode(T->rch);
+	}
+}
+void pre(Binode* &T)
+{
+	if(T==NULL)
+	  return;
+	else
+	{
+		cout<<T->data;
+		pre(T->lch);
+		pre(T->rch);
+	 } 
+}
+void Quanzhi(Binode* &T)
+{
+	Binode *n;
+	stack<Binode*>z;
+	while(T!=NULL||!z.empty())
+	{
+		while(!z.empty()&&n==T)
+		{
+			n=z.top();
+	    	z.pop();
+			if(!z.empty())
+			  T=z.top()->rch;
+			else 
+			  T=NULL;	
+		}
+		if(T==NULL&&!z.empty())
+		{
+		  	n=z.top();
+		  	z.pop();
+		}
+		while(T!=NULL)
+		{
+			z.push(T);
+			T=T->lch;
+		}
+		if(!z.empty())
+		    T=z.top();
+		else
+		    break;
+		if(T->rch==NULL&&T->lch==NULL)
+		{
+			s=(T->data)*(z.size()-1)+s;
+			n=T;
+			z.pop();	
+		}
+		if(!z.empty())
+		  T=z.top()->rch;
+		else
+		  break;
+	}
+	return;
+}
+int main()
+{
+	cout<<"请输入各结点数值构建一颗二叉树-1表示结点为空，以先序遍历的序列作为输入构造二叉树："; 
+	cout<<"\n";
+	Creatbinode(T);
+	//pre(T);
+	Quanzhi(T);
+	cout<<"输出各叶子节点值与其本身路径之积的和："; 
+	cout<<"\n"; 
+	cout<<s;
+	return 0;
+}
+
+
