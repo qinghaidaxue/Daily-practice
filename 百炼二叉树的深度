@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+struct Binode 
+{
+	int data;
+	struct Binode *lch;
+	struct Binode *rch;
+}; 
+void jianshu(int (*b)[2],int n,Binode* *a)
+{
+	for(int i=0;i<n;i++)
+	{
+		
+		if(b[i][0]==-1)
+		{
+			a[i]->lch=NULL;
+		}
+		else
+		{
+			a[i]->lch=a[b[i][0]-1];
+		}
+		if(b[i][1]==-1)
+		{
+			a[i]->rch=NULL;
+		}
+		else
+		{
+			a[i]->rch=a[b[i][1]-1];
+		}
+	}
+}
+int shendu(Binode* T)
+{
+	if(T==NULL)
+	  return 0;
+	if(T!=NULL)
+	{
+	  return max(shendu(T->lch),shendu(T->rch))+1;	
+	}
+}
+int main()
+{
+	int n=0;
+	int s=0;
+	//cout<<"请输入n的值";
+	//cout<<"\n"; 
+	cin>>n;
+	Binode* a[n];
+    for(int i=0;i<n;i++)
+    {
+  	   a[i]=new Binode;
+    }
+    //cout<<"请输入每行的两个整数";
+    //cout<<"\n";
+	int b[n][2];
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<2;j++)
+		{
+			cin>>b[i][j];
+		}	
+	}
+	jianshu(b,n,a);
+	s=shendu(a[0]);
+	cout<<s;
+	return 0;
+}
