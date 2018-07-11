@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+#include<string.h>
+#include<stdio.h>
+using namespace std;
+int main()
+{
+	char str[10];
+	char substr[10];
+	int n=0;
+	int k=0;
+	while(scanf("%s%s",str,substr)!=EOF)
+	{
+		k=0; //每次循环k要置零
+		n=strlen(str);	
+	  for(int i=0;i<n;i++)
+	  {   
+		if(str[i]>str[k])
+		{
+	    	k=i;
+	    } 
+	  }
+	  for(int i=0;i<=k;i++)
+	  {	
+		cout<<str[i];
+	  }
+	  for(int i=0;i<3;i++)
+	  {
+	   cout<<substr[i];
+      }
+	  for(int i=k+1;i<n;i++)
+	  {
+		cout<<str[i];	
+	  }
+	  cout<<"\n";
+    }
+    return 0;
+}
