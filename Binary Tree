@@ -1,0 +1,49 @@
+# include<iostream>
+using namespace std;
+int l=0,r=0;
+void often(int a,int b)
+{	
+	if(a!=1&&b!=1)
+	{
+	   if(a>b)
+	   {
+	   	  l=l+a/b;//注意l的变化
+	   	  often(a-a/b*b,b);//l已经变化故减得时候注意
+	   }
+	   else
+	   {
+		r=r+b/a;
+	   	often(a,b-b/a*a);	
+	   }	
+	}
+	else if(a==1&&b!=1)
+	   {
+	     r=r+b-1;
+	     return;
+	   }
+	else if(b==1&&a!=1)
+	   {
+	   	l=l+a-1;//注意l的变化
+	   	return;
+	   }
+}
+int main()
+{
+    int n;
+    int a,b;
+    int m=0;
+    cin>>n;
+	for (int i=0;i<n;i++) 	
+	{
+		m++;
+		cin>>a;
+		cin>>b;
+		often(a,b);
+	    cout<<"Scenario"<<" "<<'#'<<m<<":"<<"\n";
+		cout<<l<<" "<<r<<"\n";//题目中输出后不仅换行还要输出一行空
+		cout<<" "<<"\n";
+		l=0;
+		r=0;	
+	}
+	return 0;
+}
